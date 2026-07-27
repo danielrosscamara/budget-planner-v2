@@ -18,35 +18,39 @@ Designed and developed by **Daniel Ross B. Camara** as a showcase of clean code 
 
 ## 🛠️ Tech Stack & Tooling
 
-| Technology | Purpose |
-| :--- | :--- |
-| **React 19** | Component-Based UI Framework |
-| **TypeScript** | Strict Static Type Safety |
-| **Tailwind CSS v4** | Modern Utility-First Styling |
-| **Vite 8** | Next-Generation Frontend Tooling & HMR |
-| **ESLint 10** | Static Code Quality & React Hooks Linting |
+| Technology          | Purpose                                   |
+| :------------------ | :---------------------------------------- |
+| **React 19**        | Component-Based UI Framework              |
+| **TypeScript**      | Strict Static Type Safety                 |
+| **Tailwind CSS v4** | Modern Utility-First Styling              |
+| **Vite 8**          | Next-Generation Frontend Tooling & HMR    |
+| **ESLint 10**       | Static Code Quality & React Hooks Linting |
 
 ---
 
 ## 🚀 Getting Started
 
 ### Prerequisites
+
 Make sure you have [Node.js](https://nodejs.org/) (v18 or higher) installed.
 
 ### Installation
 
 1. **Clone the repository:**
+
    ```bash
    git clone https://github.com/danielrosscamara/budget-planner-v2.git
    cd budget-planner-v2
    ```
 
 2. **Install dependencies:**
+
    ```bash
    npm install
    ```
 
 3. **Start the local development server:**
+
    ```bash
    npm run dev
    ```
@@ -55,13 +59,6 @@ Make sure you have [Node.js](https://nodejs.org/) (v18 or higher) installed.
 
 ---
 
-## 👨‍💻 Developer Profile
-
-- **Developer:** Daniel Ross B. Camara
-- **Education:** BS Computer Engineering, STI College Novaliches (Graduated June 2026)
-- **GitHub:** [@danielrosscamara](https://github.com/danielrosscamara)
-
----
-
 ## 📄 License
+
 This project is open-source and available under the [MIT License](LICENSE).
