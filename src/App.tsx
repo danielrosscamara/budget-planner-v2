@@ -1,38 +1,43 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import type { Transaction } from './types/budget'
 import { Header } from './components/Header'
 import { Dashboard } from './components/Dashboard'
 import { TransactionForm } from './components/TransactionForm'
 import { TransactionList } from './components/TransactionList'
+import { Footer } from './components/Footer'
+import { loadTransactions, saveTransactions } from './utils/storage'
 
 function App() {
-  // Core Transaction State initialized with sample data
-  const [transactions, setTransactions] = useState<Transaction[]>([
-    {
-      id: '1',
-      title: 'Web Dev Freelance',
-      amount: 25000,
-      type: 'income',
-      category: 'Freelance',
-      date: '2026-07-27',
-    },
-    {
-      id: '2',
-      title: 'Grocery Shopping',
-      amount: 3500,
-      type: 'expense',
-      category: 'Food & Dining',
-      date: '2026-07-27',
-    },
-    {
-      id: '3',
-      title: 'Electricity Bill',
-      amount: 4200,
-      type: 'expense',
-      category: 'Utilities & Bills',
-      date: '2026-07-26',
-    },
-  ])
+  // Core Transaction State hydrated from localStorage via Lazy Initializer
+  const [transactions, setTransactions] = useState<Transaction[]>(() => {
+    const saved = loadTransactions()
+    if (saved.length > 0) return saved
+
+    // Default initial sample data if localStorage is empty
+    return [
+      {
+        id: '1',
+        title: 'Web Dev Freelance',
+        amount: 25000,
+        type: 'income',
+        category: 'Freelance',
+        date: '2026-07-27',
+      },
+      {
+        id: '2',
+        title: 'Grocery Shopping',
+        amount: 3500,
+        type: 'expense',
+        category: 'Food & Dining',
+        date: '2026-07-27',
+      },
+    ]
+  })
+
+  // Save to localStorage whenever transactions state changes
+  useEffect(() => {
+    saveTransactions(transactions)
+  }, [transactions])
 
   // Handler Functions
   const handleAddTransaction = (newTransaction: Transaction) => {
@@ -41,6 +46,12 @@ function App() {
 
   const handleDeleteTransaction = (id: string) => {
     setTransactions((prev) => prev.filter((item) => item.id !== id))
+  }
+
+  const handleClearAll = () => {
+    if (window.confirm('Are you sure you want to clear all transactions? This action cannot be undone.')) {
+      setTransactions([])
+    }
   }
 
   // Derived Values (Calculated inline without extra state variables)
@@ -75,7 +86,11 @@ function App() {
         <TransactionList
           transactions={transactions}
           onDeleteTransaction={handleDeleteTransaction}
+          onClearAllTransactions={handleClearAll}
         />
+
+        {/* Developer Profile Footer */}
+        <Footer />
 
       </div>
     </div>

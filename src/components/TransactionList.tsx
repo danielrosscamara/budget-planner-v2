@@ -5,6 +5,7 @@ import { TransactionItem } from './TransactionItem'
 interface TransactionListProps {
   transactions: Transaction[]
   onDeleteTransaction: (id: string) => void
+  onClearAllTransactions: () => void
 }
 
 const CATEGORIES: Category[] = [
@@ -18,7 +19,11 @@ const CATEGORIES: Category[] = [
   'Other',
 ]
 
-export function TransactionList({ transactions, onDeleteTransaction }: TransactionListProps) {
+export function TransactionList({
+  transactions,
+  onDeleteTransaction,
+  onClearAllTransactions,
+}: TransactionListProps) {
   // Local Component State for Filter Controls
   const [typeFilter, setTypeFilter] = useState<'all' | 'income' | 'expense'>('all')
   const [categoryFilter, setCategoryFilter] = useState<string>('all')
@@ -36,9 +41,22 @@ export function TransactionList({ transactions, onDeleteTransaction }: Transacti
       {/* Header & Filter Bar */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-slate-800/80">
         <div>
-          <h2 className="text-xl font-bold text-slate-100 flex items-center gap-2">
-            <span>📋</span> Recent Transactions
-          </h2>
+          <div className="flex items-center gap-3">
+            <h2 className="text-xl font-bold text-slate-100 flex items-center gap-2">
+              <span>📋</span> Recent Transactions
+            </h2>
+
+            {transactions.length > 0 && (
+              <button
+                onClick={onClearAllTransactions}
+                className="px-2.5 py-1 bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border border-rose-500/20 rounded-lg text-xs font-medium transition-all cursor-pointer flex items-center gap-1"
+                title="Clear all transactions"
+              >
+                <span>🗑️</span> Clear All
+              </button>
+            )}
+          </div>
+
           <p className="text-xs text-slate-400 mt-0.5">
             Showing {filteredTransactions.length} of {transactions.length} total entries
           </p>
