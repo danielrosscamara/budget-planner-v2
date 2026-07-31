@@ -1,4 +1,6 @@
 export type TransactionType = 'income' | 'expense'
+export type TabType = 'transactions' | 'accounts' | 'analytics' | 'goals'
+
 
 export type Category = 
   | 'Salary' 
