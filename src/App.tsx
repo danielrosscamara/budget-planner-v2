@@ -6,6 +6,7 @@ import { Dashboard } from './components/Dashboard'
 import { TransactionForm } from './components/TransactionForm'
 import { TransactionList } from './components/TransactionList'
 import { Footer } from './components/Footer'
+import { CategoryPieChart } from './components/CategoryPieChart'
 import { loadTransactions, saveTransactions } from './utils/storage'
 
 function App() {
@@ -107,14 +108,10 @@ function App() {
           </div>
         )}
 
-        {/* View 3: Analytics Tab Placeholder (Phase 8) */}
+        {/* View 3: Analytics Tab (Phase 8) */}
         {activeTab === 'analytics' && (
-          <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-12 text-center text-slate-400 space-y-3">
-            <span className="text-4xl block">📊</span>
-            <h3 className="text-lg font-bold text-slate-200">Analytics & Budget Caps</h3>
-            <p className="text-xs max-w-sm mx-auto text-slate-500">
-              Interactive charts and Category Budget Progress Bars coming up in Phase 8!
-            </p>
+          <div className="space-y-6">
+            <CategoryPieChart transactions={transactions} />
           </div>
         )}
 
