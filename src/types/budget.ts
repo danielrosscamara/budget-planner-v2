@@ -1,6 +1,6 @@
 export type TransactionType = 'income' | 'expense'
 export type TabType = 'transactions' | 'accounts' | 'analytics' | 'goals'
-
+export type AccountType = 'ewallet' | 'bank' | 'cash' | 'savings'
 
 export type Category = 
   | 'Salary' 
@@ -12,6 +12,16 @@ export type Category =
   | 'Shopping' 
   | 'Other'
 
+export interface Account {
+  id: string
+  name: string
+  type: AccountType
+  balance: number
+  color: string
+  icon: string
+  accountNumber?: string
+}
+
 export interface Transaction {
   id: string
   title: string
@@ -19,4 +29,5 @@ export interface Transaction {
   type: TransactionType
   category: Category
   date: string
+  accountId?: string
 }
