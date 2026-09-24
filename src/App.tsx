@@ -6,7 +6,7 @@ import { Dashboard } from './components/Dashboard'
 import { TransactionForm } from './components/TransactionForm'
 import { TransactionList } from './components/TransactionList'
 import { Footer } from './components/Footer'
-import { CategoryPieChart } from './components/CategoryPieChart'
+import { AnalyticsView } from './components/AnalyticsView'
 import { loadTransactions, saveTransactions } from './utils/storage'
 
 function App() {
@@ -108,11 +108,9 @@ function App() {
           </div>
         )}
 
-        {/* View 3: Analytics Tab (Phase 8) */}
+        {/* View 3: Analytics Tab (Phase 8 Complete) */}
         {activeTab === 'analytics' && (
-          <div className="space-y-6">
-            <CategoryPieChart transactions={transactions} />
-          </div>
+          <AnalyticsView transactions={transactions} />
         )}
 
         {/* View 4: Goals Tab Placeholder (Phase 10) */}
