@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import type { Transaction, TabType } from './types/budget'
+import type { Transaction, TabType, Account } from './types/budget'
 import { Header } from './components/Header'
 import { Navbar } from './components/Navbar'
 import { Dashboard } from './components/Dashboard'
@@ -7,7 +7,8 @@ import { TransactionForm } from './components/TransactionForm'
 import { TransactionList } from './components/TransactionList'
 import { Footer } from './components/Footer'
 import { AnalyticsView } from './components/AnalyticsView'
-import { loadTransactions, saveTransactions } from './utils/storage'
+import { AccountsView } from './components/AccountsView'
+import { loadTransactions, saveTransactions, loadAccounts, saveAccounts } from './utils/storage'
 
 function App() {
   // Phase 7: Navigation Tab State
@@ -44,7 +45,22 @@ function App() {
     saveTransactions(transactions)
   }, [transactions])
 
+  // Phase 9: Accounts State hydrated from localStorage via Lazy Initializer
+  const [accounts, setAccounts] = useState<Account[]>(loadAccounts)
+
+  // Save to localStorage whenever accounts state changes
+  useEffect(() => {
+    saveAccounts(accounts)
+  }, [accounts])
+
   // Handler Functions
+  const handleUpdateAccountBalance = (accountId: string, newBalance: number) => {
+    setAccounts((prev) =>
+      prev.map((acc) =>
+        acc.id === accountId ? { ...acc, balance: newBalance } : acc
+      )
+    )
+  }
   const handleAddTransaction = (newTransaction: Transaction) => {
     setTransactions((prev) => [newTransaction, ...prev])
   }
@@ -97,15 +113,12 @@ function App() {
           </>
         )}
 
-        {/* View 2: Accounts Tab Placeholder (Phase 9) */}
+        {/* View 2: Accounts Tab (Phase 9 Complete) */}
         {activeTab === 'accounts' && (
-          <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-12 text-center text-slate-400 space-y-3">
-            <span className="text-4xl block">🏦</span>
-            <h3 className="text-lg font-bold text-slate-200">Multi-Account & Wallet Manager</h3>
-            <p className="text-xs max-w-sm mx-auto text-slate-500">
-              Track balances across GCash, Maya, Bank Accounts, and Cash in Phase 9!
-            </p>
-          </div>
+          <AccountsView
+            accounts={accounts}
+            onUpdateAccountBalance={handleUpdateAccountBalance}
+          />
         )}
 
         {/* View 3: Analytics Tab (Phase 8 Complete) */}
